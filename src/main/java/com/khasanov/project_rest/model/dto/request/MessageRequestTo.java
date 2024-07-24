@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class MessageRequestTo {
+    private Long id;
     private Story story;
     private String content;
 }

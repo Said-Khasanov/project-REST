@@ -5,7 +5,6 @@ import com.khasanov.project_rest.model.dto.response.CreatorResponseTo;
 import com.khasanov.project_rest.service.CreatorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +17,7 @@ public class CreatorController {
     private final CreatorService creatorService;
 
     @GetMapping
-    public ResponseEntity<List<CreatorResponseTo>> getAllCreators() {
+    public ResponseEntity<List<CreatorResponseTo>> findAll() {
         List<CreatorResponseTo> creatorResponseToList = creatorService.findAll();
         return ResponseEntity.ok(creatorResponseToList);
     }
@@ -29,10 +28,16 @@ public class CreatorController {
         return ResponseEntity.ok(creatorResponseTo);
     }
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     public ResponseEntity<CreatorResponseTo> createCreator(@RequestBody CreatorRequestTo creatorRequestTo) {
         CreatorResponseTo creatorResponseTo = creatorService.createCreator(creatorRequestTo);
         return ResponseEntity.status(HttpStatus.CREATED).body(creatorResponseTo);
+    }
+
+    @PutMapping
+    public ResponseEntity<CreatorResponseTo> updateCreator(@RequestBody CreatorRequestTo creatorRequestTo) {
+        CreatorResponseTo creatorResponseTo = creatorService.updateCreator(creatorRequestTo);
+        return ResponseEntity.ok(creatorResponseTo);
     }
 
     @DeleteMapping("/{id:\\d+}")

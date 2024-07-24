@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Data
 public class StoryRequestTo {
+    private Long id;
     private Creator creator;
     private String title;
     private String content;

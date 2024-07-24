@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static java.util.Objects.requireNonNullElse;
+
 @RequiredArgsConstructor
 @Service
 public class CreatorService {
@@ -33,9 +35,15 @@ public class CreatorService {
         return creatorMapper.toCreatorResponseTo(creatorInDb);
     }
 
-    public void updateCreator(CreatorRequestTo creatorRequestTo) {
-        Creator creator = creatorMapper.toEntity(creatorRequestTo);
-        creatorRepository.save(creator);
+    public CreatorResponseTo updateCreator(CreatorRequestTo creatorRequestTo) {
+        CreatorResponseTo creatorResponseTo = findById(creatorRequestTo.getId());
+        Creator creator = creatorMapper.toEntity(creatorResponseTo);
+        creator.setLogin(requireNonNullElse(creatorRequestTo.getLogin(), creator.getLogin()));
+        creator.setFirstname(requireNonNullElse(creatorRequestTo.getFirstname(), creator.getFirstname()));
+        creator.setLastname(requireNonNullElse(creatorRequestTo.getLastname(), creator.getLastname()));
+        creator.setPassword(requireNonNullElse(creatorRequestTo.getPassword(), creator.getPassword()));
+        Creator updatedCreator = creatorRepository.save(creator);
+        return creatorMapper.toCreatorResponseTo(updatedCreator);
     }
 
     public void deleteCreator(Long id) {

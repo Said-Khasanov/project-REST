@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class CreatorRequestTo {
+    private Long id;
     private String login;
     private String password;
     private String firstname;
