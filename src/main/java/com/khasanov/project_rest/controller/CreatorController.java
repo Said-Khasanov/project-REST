@@ -3,33 +3,41 @@ package com.khasanov.project_rest.controller;
 import com.khasanov.project_rest.model.dto.request.CreatorRequestTo;
 import com.khasanov.project_rest.model.dto.response.CreatorResponseTo;
 import com.khasanov.project_rest.service.CreatorService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@AllArgsConstructor
+import java.util.List;
+
+@RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v${application.api.version}/creators")
+@RequestMapping("${spring.application.api-prefix}/creators")
 public class CreatorController {
     private final CreatorService creatorService;
 
+    @GetMapping
+    public ResponseEntity<List<CreatorResponseTo>> getAllCreators() {
+        List<CreatorResponseTo> creatorResponseToList = creatorService.findAll();
+        return ResponseEntity.ok(creatorResponseToList);
+    }
+
     @GetMapping("/{id:\\d+}")
-    public ResponseEntity<CreatorResponseTo> findById(@RequestParam Long id) {
+    public ResponseEntity<CreatorResponseTo> findById(@PathVariable Long id) {
         CreatorResponseTo creatorResponseTo = creatorService.findById(id);
-        return new ResponseEntity<>(creatorResponseTo, HttpStatus.OK);
+        return ResponseEntity.ok(creatorResponseTo);
     }
 
-    public ResponseEntity<CreatorResponseTo> createCreator(CreatorRequestTo creatorRequestTo) {
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CreatorResponseTo> createCreator(@RequestBody CreatorRequestTo creatorRequestTo) {
         CreatorResponseTo creatorResponseTo = creatorService.createCreator(creatorRequestTo);
-        return new ResponseEntity<>(creatorResponseTo, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(creatorResponseTo);
     }
 
-    public ResponseEntity<Void> deleteById(@RequestParam Long id) {
+    @DeleteMapping("/{id:\\d+}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         creatorService.deleteCreator(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 }

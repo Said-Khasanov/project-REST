@@ -5,10 +5,12 @@ import com.khasanov.project_rest.model.dto.response.CreatorResponseTo;
 import com.khasanov.project_rest.model.entity.Creator;
 import com.khasanov.project_rest.model.mapper.CreatorMapper;
 import com.khasanov.project_rest.repository.CreatorRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@AllArgsConstructor
+import java.util.List;
+
+@RequiredArgsConstructor
 @Service
 public class CreatorService {
     private final CreatorRepository creatorRepository;
@@ -17,6 +19,12 @@ public class CreatorService {
     public CreatorResponseTo findById(Long id) {
         Creator creator = creatorRepository.findById(id).orElseThrow();
         return creatorMapper.toCreatorResponseTo(creator);
+    }
+
+    public List<CreatorResponseTo> findAll() {
+        return creatorRepository.findAll().stream()
+                .map(creatorMapper::toCreatorResponseTo)
+                .toList();
     }
 
     public CreatorResponseTo createCreator(CreatorRequestTo creatorRequestTo) {
