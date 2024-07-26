@@ -9,9 +9,7 @@ import org.mapstruct.Mapper;
 public interface CreatorMapper {
     Creator toEntity(CreatorRequestTo creatorRequestTo);
 
-    Creator toEntity(CreatorResponseTo creatorRequestTo);
-
-    CreatorRequestTo toCreatorRequestTo(Creator creator);
+    Creator toEntity(CreatorResponseTo creatorResponseTo);
 
     CreatorResponseTo toCreatorResponseTo(Creator creator);
 }

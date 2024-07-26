@@ -18,15 +18,15 @@ public class CreatorService {
     private final CreatorRepository creatorRepository;
     private final CreatorMapper creatorMapper;
 
-    public CreatorResponseTo findById(Long id) {
-        Creator creator = creatorRepository.findById(id).orElseThrow();
-        return creatorMapper.toCreatorResponseTo(creator);
-    }
-
     public List<CreatorResponseTo> findAll() {
         return creatorRepository.findAll().stream()
                 .map(creatorMapper::toCreatorResponseTo)
                 .toList();
+    }
+
+    public CreatorResponseTo findById(Long id) {
+        Creator creator = creatorRepository.findById(id).orElseThrow();
+        return creatorMapper.toCreatorResponseTo(creator);
     }
 
     public CreatorResponseTo createCreator(CreatorRequestTo creatorRequestTo) {
