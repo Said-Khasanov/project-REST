@@ -1,4 +1,4 @@
-package com.khasanov.project_rest.model.dto.request;
+package com.khasanov.project_rest.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class StoryRequestTo {
+public class StoryResponseTo {
     private Long id;
     private Long creatorId;
     private String title;

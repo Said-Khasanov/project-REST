@@ -1,7 +1,7 @@
 package com.khasanov.project_rest.controller;
 
-import com.khasanov.project_rest.model.dto.request.CreatorRequestTo;
-import com.khasanov.project_rest.model.dto.response.CreatorResponseTo;
+import com.khasanov.project_rest.dto.request.CreatorRequestTo;
+import com.khasanov.project_rest.dto.response.CreatorResponseTo;
 import com.khasanov.project_rest.service.CreatorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

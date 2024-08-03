@@ -1,10 +1,10 @@
 package com.khasanov.project_rest.service;
 
-import com.khasanov.project_rest.model.dto.request.StoryRequestTo;
-import com.khasanov.project_rest.model.dto.response.StoryResponseTo;
-import com.khasanov.project_rest.model.entity.Creator;
-import com.khasanov.project_rest.model.entity.Story;
-import com.khasanov.project_rest.model.mapper.StoryMapper;
+import com.khasanov.project_rest.dto.request.StoryRequestTo;
+import com.khasanov.project_rest.dto.response.StoryResponseTo;
+import com.khasanov.project_rest.entity.Creator;
+import com.khasanov.project_rest.entity.Story;
+import com.khasanov.project_rest.mapper.StoryMapper;
 import com.khasanov.project_rest.repository.CreatorRepository;
 import com.khasanov.project_rest.repository.StoryRepository;
 import lombok.RequiredArgsConstructor;

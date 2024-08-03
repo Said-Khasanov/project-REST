@@ -1,7 +1,7 @@
 package com.khasanov.project_rest.controller;
 
-import com.khasanov.project_rest.model.dto.request.StoryRequestTo;
-import com.khasanov.project_rest.model.dto.response.StoryResponseTo;
+import com.khasanov.project_rest.dto.request.StoryRequestTo;
+import com.khasanov.project_rest.dto.response.StoryResponseTo;
 import com.khasanov.project_rest.service.StoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

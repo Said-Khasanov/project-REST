@@ -1,4 +1,4 @@
-package com.khasanov.project_rest.model.entity;
+package com.khasanov.project_rest.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,10 +10,15 @@ import lombok.*;
 @Setter
 @ToString
 @Entity
-@Table(name = "marker")
-public class Marker {
+@Table(name = "message")
+public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "story_id")
+    private Story story;
+
+    private String content;
 }

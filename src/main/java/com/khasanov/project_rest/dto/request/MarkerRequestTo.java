@@ -1,4 +1,4 @@
-package com.khasanov.project_rest.model.dto.request;
+package com.khasanov.project_rest.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

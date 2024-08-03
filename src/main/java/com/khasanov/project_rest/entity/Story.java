@@ -1,4 +1,4 @@
-package com.khasanov.project_rest.model.entity;
+package com.khasanov.project_rest.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

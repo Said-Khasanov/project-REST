@@ -1,6 +1,6 @@
-package com.khasanov.project_rest.model.dto.response;
+package com.khasanov.project_rest.dto.request;
 
-import com.khasanov.project_rest.model.entity.Story;
+import com.khasanov.project_rest.entity.Story;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class MessageResponseTo {
+public class MessageRequestTo {
     private Long id;
     private Story story;
     private String content;

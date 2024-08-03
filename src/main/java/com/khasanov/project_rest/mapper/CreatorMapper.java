@@ -1,8 +1,8 @@
-package com.khasanov.project_rest.model.mapper;
+package com.khasanov.project_rest.mapper;
 
-import com.khasanov.project_rest.model.dto.request.CreatorRequestTo;
-import com.khasanov.project_rest.model.dto.response.CreatorResponseTo;
-import com.khasanov.project_rest.model.entity.Creator;
+import com.khasanov.project_rest.dto.request.CreatorRequestTo;
+import com.khasanov.project_rest.dto.response.CreatorResponseTo;
+import com.khasanov.project_rest.entity.Creator;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

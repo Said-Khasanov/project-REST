@@ -1,14 +1,15 @@
 package com.khasanov.project_rest.service;
 
-import com.khasanov.project_rest.model.dto.request.CreatorRequestTo;
-import com.khasanov.project_rest.model.dto.response.CreatorResponseTo;
-import com.khasanov.project_rest.model.entity.Creator;
-import com.khasanov.project_rest.model.mapper.CreatorMapper;
+import com.khasanov.project_rest.dto.request.CreatorRequestTo;
+import com.khasanov.project_rest.dto.response.CreatorResponseTo;
+import com.khasanov.project_rest.entity.Creator;
+import com.khasanov.project_rest.mapper.CreatorMapper;
 import com.khasanov.project_rest.repository.CreatorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static java.util.Objects.requireNonNullElse;
 
@@ -25,7 +26,7 @@ public class CreatorService {
     }
 
     public CreatorResponseTo findById(Long id) {
-        Creator creator = creatorRepository.findById(id).orElseThrow();
+        Creator creator = creatorRepository.findById(id).orElseThrow(NoSuchElementException::new);
         return creatorMapper.toCreatorResponseTo(creator);
     }
 
@@ -47,6 +48,7 @@ public class CreatorService {
     }
 
     public void deleteCreator(Long id) {
+        findById(id);
         creatorRepository.deleteById(id);
     }
 }

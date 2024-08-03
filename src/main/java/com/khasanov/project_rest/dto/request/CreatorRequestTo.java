@@ -1,4 +1,4 @@
-package com.khasanov.project_rest.model.dto.response;
+package com.khasanov.project_rest.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class CreatorResponseTo {
+public class CreatorRequestTo {
     private Long id;
     private String login;
     private String password;
