@@ -3,6 +3,7 @@ package com.khasanov.project_rest.controller;
 import com.khasanov.project_rest.dto.request.MessageRequestTo;
 import com.khasanov.project_rest.dto.response.MessageResponseTo;
 import com.khasanov.project_rest.service.MessageService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,13 +30,13 @@ public class MessageController {
     }
 
     @PostMapping
-    public ResponseEntity<MessageResponseTo> save(@RequestBody MessageRequestTo messageRequestTo) {
+    public ResponseEntity<MessageResponseTo> save(@Valid @RequestBody MessageRequestTo messageRequestTo) {
         MessageResponseTo messageResponseTo = messageService.save(messageRequestTo);
         return ResponseEntity.status(HttpStatus.CREATED).body(messageResponseTo);
     }
 
     @PutMapping
-    public ResponseEntity<MessageResponseTo> update(@RequestBody MessageRequestTo messageRequestTo) {
+    public ResponseEntity<MessageResponseTo> update(@Valid @RequestBody MessageRequestTo messageRequestTo) {
         MessageResponseTo messageResponseTo = messageService.update(messageRequestTo);
         return ResponseEntity.ok(messageResponseTo);
     }
