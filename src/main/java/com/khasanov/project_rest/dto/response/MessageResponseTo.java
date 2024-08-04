@@ -1,6 +1,5 @@
 package com.khasanov.project_rest.dto.response;
 
-import com.khasanov.project_rest.entity.Story;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class MessageResponseTo {
     private Long id;
-    private Story story;
+    private Long storyId;
     private String content;
 }

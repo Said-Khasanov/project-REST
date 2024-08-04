@@ -3,12 +3,12 @@ package com.khasanov.project_rest.exception;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 @Getter
 public enum ApplicationException {
     NoSuchElementException(NOT_FOUND, 1),
+    MethodArgumentNotValidException(BAD_REQUEST, 2),
     RuntimeException(INTERNAL_SERVER_ERROR, 99);
 
     private final HttpStatus httpStatus;

@@ -3,6 +3,7 @@ package com.khasanov.project_rest.controller;
 import com.khasanov.project_rest.dto.request.CreatorRequestTo;
 import com.khasanov.project_rest.dto.response.CreatorResponseTo;
 import com.khasanov.project_rest.service.CreatorService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,20 +30,20 @@ public class CreatorController {
     }
 
     @PostMapping
-    public ResponseEntity<CreatorResponseTo> createCreator(@RequestBody CreatorRequestTo creatorRequestTo) {
-        CreatorResponseTo creatorResponseTo = creatorService.createCreator(creatorRequestTo);
+    public ResponseEntity<CreatorResponseTo> save(@Valid @RequestBody CreatorRequestTo creatorRequestTo) {
+        CreatorResponseTo creatorResponseTo = creatorService.save(creatorRequestTo);
         return ResponseEntity.status(HttpStatus.CREATED).body(creatorResponseTo);
     }
 
     @PutMapping
-    public ResponseEntity<CreatorResponseTo> updateCreator(@RequestBody CreatorRequestTo creatorRequestTo) {
-        CreatorResponseTo creatorResponseTo = creatorService.updateCreator(creatorRequestTo);
+    public ResponseEntity<CreatorResponseTo> update(@Valid @RequestBody CreatorRequestTo creatorRequestTo) {
+        CreatorResponseTo creatorResponseTo = creatorService.update(creatorRequestTo);
         return ResponseEntity.ok(creatorResponseTo);
     }
 
     @DeleteMapping("/{id:\\d+}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
-        creatorService.deleteCreator(id);
+        creatorService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

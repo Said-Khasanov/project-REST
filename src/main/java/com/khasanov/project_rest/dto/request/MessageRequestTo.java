@@ -1,6 +1,6 @@
 package com.khasanov.project_rest.dto.request;
 
-import com.khasanov.project_rest.entity.Story;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class MessageRequestTo {
     private Long id;
-    private Story story;
+
+    private Long storyId;
+
+    @Size(min = 2, max = 2048)
     private String content;
 }

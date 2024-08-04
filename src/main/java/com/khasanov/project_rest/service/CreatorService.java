@@ -30,13 +30,13 @@ public class CreatorService {
         return creatorMapper.toCreatorResponseTo(creator);
     }
 
-    public CreatorResponseTo createCreator(CreatorRequestTo creatorRequestTo) {
+    public CreatorResponseTo save(CreatorRequestTo creatorRequestTo) {
         Creator creator = creatorMapper.toEntity(creatorRequestTo);
         Creator creatorInDb = creatorRepository.save(creator);
         return creatorMapper.toCreatorResponseTo(creatorInDb);
     }
 
-    public CreatorResponseTo updateCreator(CreatorRequestTo creatorRequestTo) {
+    public CreatorResponseTo update(CreatorRequestTo creatorRequestTo) {
         CreatorResponseTo creatorResponseTo = findById(creatorRequestTo.getId());
         Creator creator = creatorMapper.toEntity(creatorResponseTo);
         creator.setLogin(requireNonNullElse(creatorRequestTo.getLogin(), creator.getLogin()));
@@ -47,7 +47,7 @@ public class CreatorService {
         return creatorMapper.toCreatorResponseTo(updatedCreator);
     }
 
-    public void deleteCreator(Long id) {
+    public void deleteById(Long id) {
         findById(id);
         creatorRepository.deleteById(id);
     }

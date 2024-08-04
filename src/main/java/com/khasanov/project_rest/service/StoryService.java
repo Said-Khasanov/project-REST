@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static java.util.Objects.requireNonNullElse;
 
@@ -28,7 +29,7 @@ public class StoryService {
     }
 
     public StoryResponseTo findById(Long id) {
-        Story story = storyRepository.findById(id).orElseThrow();
+        Story story = storyRepository.findById(id).orElseThrow(NoSuchElementException::new);
         return storyMapper.toStoryResponseTo(story);
     }
 
@@ -45,14 +46,17 @@ public class StoryService {
         story.setTitle(requireNonNullElse(storyRequestTo.getTitle(), story.getTitle()));
         story.setCreated(requireNonNullElse(storyRequestTo.getCreated(), story.getCreated()));
         story.setModified(requireNonNullElse(storyRequestTo.getModified(), story.getModified()));
-        Long creatorId = requireNonNullElse(storyRequestTo.getCreatorId(), story.getCreator().getId());
-        Creator creator = creatorRepository.findById(creatorId).orElseThrow();
-        story.setCreator(creator);
+        Long creatorId = storyRequestTo.getCreatorId();
+        if (creatorId != null) {
+            Creator creator = creatorRepository.findById(creatorId).orElseThrow(NoSuchElementException::new);
+            story.setCreator(creator);
+        }
         Story updatedStory = storyRepository.save(story);
         return storyMapper.toStoryResponseTo(updatedStory);
     }
 
     public void deleteById(Long id) {
+        findById(id);
         storyRepository.deleteById(id);
     }
 }

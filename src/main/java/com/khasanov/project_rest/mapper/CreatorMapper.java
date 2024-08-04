@@ -4,8 +4,9 @@ import com.khasanov.project_rest.dto.request.CreatorRequestTo;
 import com.khasanov.project_rest.dto.response.CreatorResponseTo;
 import com.khasanov.project_rest.entity.Creator;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingConstants;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CreatorMapper {
     Creator toEntity(CreatorRequestTo creatorRequestTo);
 
