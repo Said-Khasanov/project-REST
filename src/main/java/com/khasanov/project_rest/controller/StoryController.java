@@ -13,7 +13,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("${spring.application.api-prefix}/storys")
+@RequestMapping("${spring.application.api-v1-prefix}/storys")
 public class StoryController {
     private final StoryService storyService;
 

@@ -13,7 +13,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("${spring.application.api-prefix}/creators")
+@RequestMapping("${spring.application.api-v1-prefix}/creators")
 public class CreatorController {
     private final CreatorService creatorService;
 

@@ -13,7 +13,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("${spring.application.api-prefix}/markers")
+@RequestMapping("${spring.application.api-v1-prefix}/markers")
 public class MarkerController {
     private final MarkerService markerService;
 

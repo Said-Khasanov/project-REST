@@ -13,7 +13,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("${spring.application.api-prefix}/messages")
+@RequestMapping("${spring.application.api-v1-prefix}/messages")
 public class MessageController {
     private final MessageService messageService;
 
