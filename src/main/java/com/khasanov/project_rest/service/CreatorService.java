@@ -30,6 +30,11 @@ public class CreatorService {
         return creatorMapper.toCreatorResponseTo(creator);
     }
 
+    public CreatorResponseTo findByStoryId(Long storyId) {
+        Creator creator = creatorRepository.findByStoryId(storyId);
+        return creatorMapper.toCreatorResponseTo(creator);
+    }
+
     public CreatorResponseTo save(CreatorRequestTo creatorRequestTo) {
         Creator creator = creatorMapper.toEntity(creatorRequestTo);
         Creator creatorInDb = creatorRepository.save(creator);

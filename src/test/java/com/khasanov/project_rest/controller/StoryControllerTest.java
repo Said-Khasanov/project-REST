@@ -2,7 +2,9 @@ package com.khasanov.project_rest.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.khasanov.project_rest.entity.Creator;
+import com.khasanov.project_rest.entity.Story;
 import lombok.RequiredArgsConstructor;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -24,23 +26,40 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @AutoConfigureMockMvc
-class CreatorControllerTest {
-
+class StoryControllerTest {
     @Value("${spring.application.api-v1-prefix}")
     private String apiPrefix;
-    public static final String RESOURCE = "/creators";
+    public static final String RESOURCE = "/storys";
     public static final String ID_PATTERN = "/{id}";
-    public static final String SOME_CREATOR = """
+    public static final String TEMPLATE_STORY = """
             {
-                "id": "",
-                "login": "someLogin",
-                "password": "somePassword",
-                "firstname": "someFirstname",
-                "lastname": "someLastname"
-            }""";
-
+                "title": "someTitle",
+                "content": "someContent",
+                "creatorId": %d
+            }
+            """;
     private final MockMvc mockMvc;
     private final ObjectMapper objectMapper;
+    private String someStory;
+
+    @BeforeEach
+    void setUp() throws Exception {
+        MvcResult creatorMvcResult = mockMvc.perform(post(apiPrefix + "/creators")
+                        .content("""
+                                {
+                                    "login": "someLogin",
+                                    "password": "somePassword",
+                                    "firstname": "someFirstname",
+                                    "lastname": "someLastname"
+                                }
+                                """)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andReturn();
+        String creatorJson = creatorMvcResult.getResponse().getContentAsString();
+        Creator creator = objectMapper.readValue(creatorJson, Creator.class);
+        someStory = TEMPLATE_STORY.formatted(creator.getId());
+    }
 
     @Test
     void findAll() throws Exception {
@@ -54,15 +73,15 @@ class CreatorControllerTest {
     @Test
     void findById() throws Exception {
         MvcResult mvcResult = mockMvc.perform(post(apiPrefix + RESOURCE)
-                .content(SOME_CREATOR)
+                .content(someStory)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
         ).andReturn();
 
         String json = mvcResult.getResponse().getContentAsString();
-        Creator creator = objectMapper.readValue(json, Creator.class);
+        Story story = objectMapper.readValue(json, Story.class);
 
-        mockMvc.perform(get(apiPrefix + RESOURCE + ID_PATTERN, creator.getId()))
+        mockMvc.perform(get(apiPrefix + RESOURCE + ID_PATTERN, story.getId()))
                 .andExpectAll(
                         status().isOk(),
                         content().contentType(MediaType.APPLICATION_JSON)
@@ -72,7 +91,7 @@ class CreatorControllerTest {
     @Test
     void save() throws Exception {
         mockMvc.perform(post(apiPrefix + RESOURCE)
-                        .content(SOME_CREATOR)
+                        .content(someStory)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
@@ -81,19 +100,19 @@ class CreatorControllerTest {
     @Test
     void update() throws Exception {
         MvcResult mvcResult = mockMvc.perform(post(apiPrefix + RESOURCE)
-                .content(SOME_CREATOR)
+                .content(someStory)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
         ).andReturn();
 
         String json = mvcResult.getResponse().getContentAsString();
-        Creator creator = objectMapper.readValue(json, Creator.class);
-        creator.setLogin("newLogin");
-        creator.setPassword("newPassword");
-        String updated_creator = objectMapper.writeValueAsString(creator);
+        Story story = objectMapper.readValue(json, Story.class);
+        story.setContent("newContent");
+        story.setTitle("newTitle");
+        String updated_story = objectMapper.writeValueAsString(story);
 
         mockMvc.perform(put(apiPrefix + RESOURCE)
-                        .content(updated_creator)
+                        .content(updated_story)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpectAll(
@@ -105,18 +124,19 @@ class CreatorControllerTest {
     @Test
     void whenIncorrectUpdate_thenStatusIs4xx() throws Exception {
         MvcResult mvcResult = mockMvc.perform(post(apiPrefix + RESOURCE)
-                .content(SOME_CREATOR)
+                .content(someStory)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
         ).andReturn();
 
         String json = mvcResult.getResponse().getContentAsString();
-        Creator creator = objectMapper.readValue(json, Creator.class);
-        creator.setLogin("x");
-        String incorrect_creator = objectMapper.writeValueAsString(creator);
+        Story story = objectMapper.readValue(json, Story.class);
+        story.setContent("x");
+        story.setTitle("x");
+        String incorrect_story = objectMapper.writeValueAsString(story);
 
         mockMvc.perform(put(apiPrefix + RESOURCE)
-                        .content(incorrect_creator)
+                        .content(incorrect_story)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is4xxClientError());
@@ -125,15 +145,15 @@ class CreatorControllerTest {
     @Test
     void deleteById() throws Exception {
         MvcResult mvcResult = mockMvc.perform(post(apiPrefix + RESOURCE)
-                .content(SOME_CREATOR)
+                .content(someStory)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
         ).andReturn();
 
         String json = mvcResult.getResponse().getContentAsString();
-        Creator creator = objectMapper.readValue(json, Creator.class);
+        Story story = objectMapper.readValue(json, Story.class);
 
-        mockMvc.perform(delete(apiPrefix + RESOURCE + ID_PATTERN, creator.getId()))
+        mockMvc.perform(delete(apiPrefix + RESOURCE + ID_PATTERN, story.getId()))
                 .andExpect(status().isNoContent());
     }
 
@@ -142,4 +162,5 @@ class CreatorControllerTest {
         mockMvc.perform(delete(apiPrefix + RESOURCE + ID_PATTERN, 0))
                 .andExpect(status().is4xxClientError());
     }
+
 }
