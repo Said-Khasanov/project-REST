@@ -30,6 +30,12 @@ public class MarkerService {
         return markerMapper.toMarkerResponseTo(marker);
     }
 
+    public List<MarkerResponseTo> findByStoryId(Long storyId) {
+        return markerRepository.findByStoryId(storyId).stream()
+                .map(markerMapper::toMarkerResponseTo)
+                .toList();
+    }
+
     public MarkerResponseTo save(MarkerRequestTo markerRequestTo) {
         Marker marker = markerMapper.toEntity(markerRequestTo);
         Marker markerInDb = markerRepository.save(marker);

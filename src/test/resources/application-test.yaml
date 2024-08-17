@@ -3,7 +3,7 @@ spring:
     name: Project REST
     api-v1-prefix: /api/v1.0
   datasource:
-    driver-class-name: org.h2.Driver
+    driver-class-name:
     url: jdbc:h2:mem:test
   h2:
     console:

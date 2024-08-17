@@ -5,7 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,7 +22,6 @@ public class StoryRequestTo {
     @Size(min = 4, max = 2048)
     private String content;
 
-    private LocalDateTime created;
+    private List<MarkerRequestTo> markers = new ArrayList<>();
 
-    private LocalDateTime modified;
 }

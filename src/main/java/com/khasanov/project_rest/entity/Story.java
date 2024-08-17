@@ -7,6 +7,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @NoArgsConstructor
@@ -34,6 +36,18 @@ public class Story {
 
     @UpdateTimestamp
     private LocalDateTime modified;
+
+    @ManyToMany(
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
+            fetch = FetchType.EAGER
+    )
+    @JoinTable(
+            name = "story_marker",
+            joinColumns = @JoinColumn(name = "story_id"),
+            inverseJoinColumns = @JoinColumn(name = "marker_id")
+    )
+    @ToString.Exclude
+    List<Marker> markers = new ArrayList<>();
 
     @Override
     public final boolean equals(Object o) {

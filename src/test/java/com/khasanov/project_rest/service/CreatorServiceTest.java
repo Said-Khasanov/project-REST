@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class CreatorServiceTest {
     private CreatorService creatorService;
     private CreatorRepository creatorRepository;
-    private final CreatorMapper creatorMapper = new CreatorMapperImpl();
+    private static final CreatorMapper creatorMapper = new CreatorMapperImpl();
 
     @BeforeEach
     void setUp() {

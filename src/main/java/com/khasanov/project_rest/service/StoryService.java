@@ -44,8 +44,6 @@ public class StoryService {
         Story story = storyMapper.toEntity(storyResponseTo);
         story.setContent(requireNonNullElse(storyRequestTo.getContent(), story.getContent()));
         story.setTitle(requireNonNullElse(storyRequestTo.getTitle(), story.getTitle()));
-        story.setCreated(requireNonNullElse(storyRequestTo.getCreated(), story.getCreated()));
-        story.setModified(requireNonNullElse(storyRequestTo.getModified(), story.getModified()));
         Long creatorId = storyRequestTo.getCreatorId();
         if (creatorId != null) {
             Creator creator = creatorRepository.findById(creatorId).orElseThrow(NoSuchElementException::new);
