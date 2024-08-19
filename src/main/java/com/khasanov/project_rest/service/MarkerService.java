@@ -31,7 +31,8 @@ public class MarkerService {
     }
 
     public List<MarkerResponseTo> findByStoryId(Long storyId) {
-        return markerRepository.findByStoryId(storyId).stream()
+        return markerRepository.findByStoryId(storyId)
+                .stream()
                 .map(markerMapper::toMarkerResponseTo)
                 .toList();
     }

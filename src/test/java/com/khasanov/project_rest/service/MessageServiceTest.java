@@ -72,6 +72,30 @@ class MessageServiceTest {
     }
 
     @Test
+    void findByStoryId() {
+        long storyId = 1L;
+        Story story = Story.builder().id(storyId).build();
+        Message message1 = Message.builder()
+                .id(1L)
+                .content("some content 1")
+                .story(story)
+                .build();
+        Message message2 = Message.builder()
+                .id(2L)
+                .content("some content 2")
+                .story(story)
+                .build();
+        List<Message> messages = List.of(message1, message2);
+        Mockito.doReturn(messages).when(messageRepository).findByStoryId(storyId);
+        List<MessageResponseTo> expected = messages
+                .stream()
+                .map(messageMapper::toMessageResponseTo)
+                .toList();
+        List<MessageResponseTo> actual = messageService.findByStoryId(storyId);
+        assertEquals(expected, actual);
+    }
+
+    @Test
     void save() {
         long id = 1L;
         Message message = Message.builder()

@@ -77,10 +77,7 @@ class MarkerServiceTest {
                 .name("someMarker2")
                 .build();
         List<Marker> markers = List.of(marker1, marker2);
-        List<MarkerResponseTo> expected = markers
-                .stream()
-                .map(markerMapper::toMarkerResponseTo)
-                .toList();
+        List<MarkerResponseTo> expected = markers.stream().map(markerMapper::toMarkerResponseTo).toList();
         Mockito.doReturn(markers).when(markerRepository).findByStoryId(1L);
         List<MarkerResponseTo> actual = markerService.findByStoryId(1L);
         Assertions.assertEquals(expected, actual);

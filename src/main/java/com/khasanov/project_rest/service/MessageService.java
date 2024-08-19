@@ -33,6 +33,13 @@ public class MessageService {
         return messageMapper.toMessageResponseTo(message);
     }
 
+    public List<MessageResponseTo> findByStoryId(Long storyId) {
+        return messageRepository.findByStoryId(storyId)
+                .stream()
+                .map(messageMapper::toMessageResponseTo)
+                .toList();
+    }
+
     public MessageResponseTo save(MessageRequestTo messageRequestTo) {
         Message message = messageMapper.toEntity(messageRequestTo);
         Message messageInDb = messageRepository.save(message);
