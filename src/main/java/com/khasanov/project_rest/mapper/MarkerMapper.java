@@ -13,4 +13,6 @@ public interface MarkerMapper {
     Marker toEntity(MarkerResponseTo messageResponseTo);
 
     MarkerResponseTo toMarkerResponseTo(Marker marker);
+
+    MarkerRequestTo toMarkerRequestTo(Marker marker);
 }

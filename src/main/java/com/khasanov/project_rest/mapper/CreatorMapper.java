@@ -13,4 +13,6 @@ public interface CreatorMapper {
     Creator toEntity(CreatorResponseTo creatorResponseTo);
 
     CreatorResponseTo toCreatorResponseTo(Creator creator);
+
+    CreatorRequestTo toCreatorRequestTo(Creator creator);
 }

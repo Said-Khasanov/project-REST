@@ -17,4 +17,7 @@ public interface StoryMapper {
 
     @Mapping(target = "creatorId", source = "creator.id")
     StoryResponseTo toStoryResponseTo(Story story);
+
+    @Mapping(target = "creatorId", source = "creator.id")
+    StoryRequestTo toStoryRequestTo(Story story);
 }

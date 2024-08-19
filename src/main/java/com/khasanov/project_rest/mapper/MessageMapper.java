@@ -17,4 +17,7 @@ public interface MessageMapper {
 
     @Mapping(target = "storyId", source = "story.id")
     MessageResponseTo toMessageResponseTo(Message message);
+
+    @Mapping(target = "storyId", source = "story.id")
+    MessageRequestTo toMessageRequestTo(Message message);
 }
